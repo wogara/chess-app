@@ -28,7 +28,7 @@ export default function ChessGame({opening}) {
         position={game.fen()} 
         onPieceDrop={onDrop} 
       />
-      {isGameOver() && <h1>Game Over</h1>} {/* Conditionally render the game over message */}
+      {isGameOver() && <h1>Checkmate</h1>} {/* Conditionally render the game over message */}
     </div>
     
   )
