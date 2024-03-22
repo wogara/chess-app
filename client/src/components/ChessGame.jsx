@@ -3,9 +3,10 @@ import { Chessboard } from 'react-chessboard';
 import {Chess} from "chess.js";
 import useChessGame from '../hooks/useChessGame';
 import openingsData from '../data/eco_interpolated.json';
+import BackButton from './BackButton';
 
 export default function ChessGame({opening}) {
-  const {getCurrentGame, resetGame, isGameOver, onDrop} = useChessGame();
+  const {getCurrentGame, resetGame, isGameOver, onDrop, undoMove} = useChessGame();
   const [filteredOpenings, setFilteredOpenings] = useState([]);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function ChessGame({opening}) {
   }, [opening]);
   
   const currentFen = getCurrentGame().fen();
-  console.log("IN APP GETTING CURRENT FEN: " + currentFen);
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -30,6 +31,7 @@ export default function ChessGame({opening}) {
               position={currentFen} 
               onPieceDrop={onDrop}
             />
+            <BackButton undoMove={undoMove}/>
           </div>
           {isGameOver() && <div className="alert alert-success mt-3" role="alert">Checkmate</div>}
         </div>

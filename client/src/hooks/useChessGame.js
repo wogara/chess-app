@@ -1,14 +1,21 @@
 // src/hooks/useChessGame.js
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Chess } from 'chess.js';
 
 const useChessGame = () => {
     const [fenHistory, setFenHistory] = useState([new Chess().fen()]);
 
     const getCurrentGame = useCallback(()=>{
-        
         return new Chess(fenHistory[fenHistory.length-1]);
     },[fenHistory])
+
+    const undoMove = useCallback(() => {
+
+        setFenHistory((prevFenHistory) => {
+            return prevFenHistory.slice(0, -1)
+        });
+        //Additional logic might be needed to handle situations where you can't go back further.
+    }, [getCurrentGame, fenHistory]);
 
     function makeRandomMove() {
         const game = getCurrentGame();
@@ -36,7 +43,6 @@ const useChessGame = () => {
     const makeAMove = useCallback((move) => {
         
         const currentGame = getCurrentGame();
-       
         const result = currentGame.move(move);
         if (result) {
             setFenHistory(prevFenHistory => [...prevFenHistory, currentGame.fen()]);
@@ -53,8 +59,9 @@ const useChessGame = () => {
         const game = getCurrentGame();
         return game.game_over() || game.in_draw();
     }, [getCurrentGame]);
+    
 
-    return { getCurrentGame, makeAMove, resetGame, isGameOver, onDrop };
+    return { getCurrentGame, makeAMove, resetGame, isGameOver, onDrop, undoMove };
 };
 
 export default useChessGame;
