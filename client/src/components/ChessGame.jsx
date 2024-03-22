@@ -5,10 +5,8 @@ import useChessGame from '../hooks/useChessGame';
 import openingsData from '../data/eco_interpolated.json';
 
 export default function ChessGame({opening}) {
-  const {game, makeAMove, resetGame, isGameOver, onDrop} = useChessGame();
+  const {getCurrentGame, resetGame, isGameOver, onDrop} = useChessGame();
   const [filteredOpenings, setFilteredOpenings] = useState([]);
-  console.log("is game over" + isGameOver());
-  console.log(filteredOpenings);
 
   useEffect(() => {
     const openingsArray = Object.values(openingsData);
@@ -20,17 +18,23 @@ export default function ChessGame({opening}) {
       setFilteredOpenings([]);
     }
   }, [opening]);
-
   
+  const currentFen = getCurrentGame().fen();
+  console.log("IN APP GETTING CURRENT FEN: " + currentFen);
   return (
-    <div style={{ width: "600px", height: "600px", border: "1px solid black" }}>
-      <Chessboard 
-        position={game.fen()} 
-        onPieceDrop={onDrop} 
-      />
-      {isGameOver() && <h1>Checkmate</h1>} {/* Conditionally render the game over message */}
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-lg-8">
+          <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', border: '1px solid #ccc' }}>
+            <Chessboard 
+              position={currentFen} 
+              onPieceDrop={onDrop}
+            />
+          </div>
+          {isGameOver() && <div className="alert alert-success mt-3" role="alert">Checkmate</div>}
+        </div>
+      </div>
     </div>
-    
-  )
+  );
 }
 
