@@ -3,19 +3,19 @@ import { useState, useCallback, useEffect } from 'react';
 import { Chess } from 'chess.js';
 
 const useChessGame = () => {
-    const [fenHistory, setFenHistory] = useState([new Chess().fen()]);
+    const [game, setGame] = useState(new Chess());
 
     const getCurrentGame = useCallback(()=>{
-        return new Chess(fenHistory[fenHistory.length-1]);
-    },[fenHistory])
+        return game;
+    },[game])
 
     const undoMove = useCallback(() => {
-
-        setFenHistory((prevFenHistory) => {
-            return prevFenHistory.slice(0, -1)
-        });
-        //Additional logic might be needed to handle situations where you can't go back further.
-    }, [getCurrentGame, fenHistory]);
+        const pgn = game.pgn();
+        const newGame = new Chess();
+        newGame.load_pgn(pgn);
+        newGame.undo();
+        setGame(newGame);
+    }, [game]);
 
     function makeRandomMove() {
         const game = getCurrentGame();
@@ -45,23 +45,27 @@ const useChessGame = () => {
         const currentGame = getCurrentGame();
         const result = currentGame.move(move);
         if (result) {
-            setFenHistory(prevFenHistory => [...prevFenHistory, currentGame.fen()]);
-
+            const pgn = game.pgn();
+            const newGame = new Chess();
+            newGame.load_pgn(pgn);
+            newGame.move(move);
+            setGame(newGame);
+            //setGame(game.move(move));
+            //console.log(currentGame.pgn());
         }
         return result;
     }, [getCurrentGame]);
 
     const resetGame = useCallback(() => {
-        setFenHistory([new Chess().fen()]); // Reset or initialize the game
+        setGame(new Chess());
     }, []);
 
     const isGameOver = useCallback(() => {
-        const game = getCurrentGame();
         return game.game_over() || game.in_draw();
-    }, [getCurrentGame]);
+    }, [game]);
     
 
-    return { getCurrentGame, makeAMove, resetGame, isGameOver, onDrop, undoMove };
+    return { getCurrentGame, makeAMove, resetGame, isGameOver, onDrop, undoMove};
 };
 
 export default useChessGame;

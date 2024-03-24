@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 
 function BackButton({undoMove}) {
     return (
-        <button onClick={undoMove}>Back</button>
+        <button type='button' className="btn btn-secondary flex-fill" onClick={undoMove}>Back</button>
     );
 }
 

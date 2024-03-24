@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="container mt-5">
       <div className='d-flex' role='group' aria-label='Chess openings'>
-        <button type='button' className="btn btn-secondary flex-fill" onClick={() => setOpening("Scotch")}>Scotch Opening</button>
+        <button type='button' className="btn btn-secondary flex-fill" onClick={() => setOpening("Scotch Game")}>Scotch Opening</button>
         <button type="button" className="btn btn-secondary flex-fill" onClick={() => setOpening("Italian")}>Italian Game</button>
 
         {/* Add more opening buttons as needed */}
