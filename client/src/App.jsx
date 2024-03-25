@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState,useEffect } from 'react';
 import ChessGame from "./components/ChessGame.jsx";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

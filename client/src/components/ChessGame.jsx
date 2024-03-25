@@ -5,15 +5,25 @@ import useChessGame from '../hooks/useChessGame';
 import useOpeningArrows from '../hooks/useArrows'; // Import your custom hook
 import openingsData from '../data/eco_interpolated.json';
 import BackButton from './BackButton';
+import { useStockfish } from '../hooks/useStockfish';
 
 export default function ChessGame({opening}) {
   const {getCurrentGame, resetGame, isGameOver, onDrop, undoMove} = useChessGame();
   const [filteredOpenings, setFilteredOpenings] = useState([]);
+  const stockfish = useStockfish();
   const arrows = useOpeningArrows(getCurrentGame(),filteredOpenings);
   //console.log("ARROWS");
   //console.log(arrows);]
   const currentGame = getCurrentGame();
   const currentFen = currentGame.fen();
+
+  // const analyzePosition = (fen) => {
+  //   stockfish.sendCommand(`position fen ${fen}`);
+  //   stockfish.sendCommand("go depth 20");
+  // }
+  stockfish.sendCommand(`position fen ${currentFen}`);
+  stockfish.sendCommand("go depth 20");
+  
 
   useEffect(() => {
 
@@ -32,7 +42,6 @@ export default function ChessGame({opening}) {
     }
   }, [opening]);
   
-  console.log("ARROWS : " + arrows);
   return (
     <div className="container">
       <div className="row justify-content-center">
