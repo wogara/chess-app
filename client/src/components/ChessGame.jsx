@@ -12,15 +12,10 @@ export default function ChessGame({opening}) {
   const [filteredOpenings, setFilteredOpenings] = useState([]);
   const stockfish = useStockfish();
   const arrows = useOpeningArrows(getCurrentGame(),filteredOpenings);
-  //console.log("ARROWS");
-  //console.log(arrows);]
+
   const currentGame = getCurrentGame();
   const currentFen = currentGame.fen();
 
-  // const analyzePosition = (fen) => {
-  //   stockfish.sendCommand(`position fen ${fen}`);
-  //   stockfish.sendCommand("go depth 20");
-  // }
   stockfish.sendCommand(`position fen ${currentFen}`);
   stockfish.sendCommand("go depth 20");
   
@@ -53,8 +48,12 @@ export default function ChessGame({opening}) {
               customArrows={arrows}
             />
             <BackButton undoMove={undoMove}/>
+            
           </div>
           {isGameOver() && <div className="alert alert-success mt-3" role="alert">Checkmate</div>}
+        </div>
+        <div className='col-lg-2'>
+        <progress value={50} max={100}/>
         </div>
       </div>
     </div>
