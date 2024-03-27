@@ -27,49 +27,10 @@
     }
 
     async sendCommand(command) {
-        console.log('sending command to stockfish');
         await this.isReady; // Wait for the UCI to be ready
         this.stockfishWorker.postMessage(command);
     }
 }
 
-// class StockfishWrapper {
-//     static instance = null;
-//     stockfishWorker = null;
-  
-//     constructor() {
-//       if (!StockfishWrapper.instance) {
-//         console.log('Initializing Stockfish worker');
-//         this.init();
-//         StockfishWrapper.instance = this;
-//       } else {
-//         console.log('Using existing Stockfish worker');
-//       }
-  
-//       return StockfishWrapper.instance;
-//     }
-  
-//     init() {
-//       this.stockfishWorker = new Worker('../../stockfish-nnue-16-single.js');
-//       this.stockfishWorker.onmessage = (event) => {
-//         console.log("Stockfish:", event.data);
-//       };
-//       this.stockfishWorker.postMessage("uci");
-//     }
-  
-//     sendCommand(command) {
-//       if (this.stockfishWorker) {
-//         this.stockfishWorker.postMessage(command);
-//       }
-//     }
-  
-//     terminate() {
-//       if (this.stockfishWorker) {
-//         this.stockfishWorker.terminate();
-//         this.stockfishWorker = null;
-//         StockfishWrapper.instance = null;
-//       }
-//     }
-//   }
   
 export default StockfishWrapper;

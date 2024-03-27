@@ -27,8 +27,8 @@ function App() {
         {/* Navigation and other UI elements can go here */}
 
         <Routes>
-          <Route path="/create-room" element={<ChessRoom number={1234} playerColor={'white'}/>} />
-          <Route path="/join-room/:number" element={<ChessRoom number={1234} playerColor={'black'}/>} />
+          <Route path="/create-room" element={<ChessRoom playerColor={'white'}/>} />
+          <Route path="/join-room/:number" element={<ChessRoom playerColor={'black'}/>} />
           <Route path="/learn-openings" element={<ChessGame opening={"Italian"} playerColor={'both'} sendMove={undefined} />} />
           <Route path="/" element={<Home />} />
         </Routes>

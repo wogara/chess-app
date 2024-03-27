@@ -11,7 +11,12 @@ export default function ChessGame({opening,playerColor,sendMove, receivedMove}) 
   const {getCurrentGame, resetGame, isGameOver, onDrop, undoMove} = useChessGame(playerColor,sendMove,receivedMove);
   const [filteredOpenings, setFilteredOpenings] = useState([]);
   const stockfish = useStockfish();
-  const arrows = useOpeningArrows(getCurrentGame(),filteredOpenings);
+  let arrows = [[]];
+  
+  if (opening){
+    arrows = useOpeningArrows(getCurrentGame(),filteredOpenings);
+  }
+  
 
   const currentGame = getCurrentGame();
   const currentFen = currentGame.fen();
@@ -47,13 +52,13 @@ export default function ChessGame({opening,playerColor,sendMove, receivedMove}) 
               onPieceDrop={onDrop}
               customArrows={arrows}
             />
-            <BackButton undoMove={undoMove}/>
+            {arrows[0].length > 0 && <BackButton undoMove={undoMove}/>}
             
           </div>
           {isGameOver() && <div className="alert alert-success mt-3" role="alert">Checkmate</div>}
         </div>
         <div className='col-lg-2'>
-        <progress value={50} max={100}/>
+        {arrows[0].length > 0 && <progress value={50} max={100}/>}
         </div>
       </div>
     </div>
