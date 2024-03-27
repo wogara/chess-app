@@ -25,10 +25,7 @@ const useOpeningArrows = (game, filteredOpenings) => {
     if (filteredOpenings[0]) {
       const moveNumber = getMoveNumber(game);
       const total_arrows = simplifyPgn(filteredOpenings[0].moves); // Assuming getPgn(game) gives the correct PGN for current game state
-      console.log('TOTAL ARROWS: ');
-      console.log(total_arrows.length);
-      console.log("MOVE NUMBER");
-      console.log(moveNumber);
+      
       if (moveNumber < total_arrows.length) {
         console.log('setArrows');
         setArrows([total_arrows[moveNumber]]);

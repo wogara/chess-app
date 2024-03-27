@@ -2,10 +2,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Chess } from 'chess.js';
 
-const useChessGame = () => {
+const useChessGame = (playerColor, sendMove, receivedMove) => {
     const [game, setGame] = useState(new Chess());
-
+    const [player, setPlayer] = useState(playerColor);
+    
     const getCurrentGame = useCallback(()=>{
+        
         return game;
     },[game])
 
@@ -26,6 +28,8 @@ const useChessGame = () => {
     
       
     const onDrop = useCallback((sourceSquare,targetSquare) => {
+
+        if ((game.turn() === 'w' && player === 'white') || game.turn() === 'b' && player === 'black' || player==='both'){
         const move = makeAMove({
             from: sourceSquare,
             to: targetSquare,
@@ -36,8 +40,11 @@ const useChessGame = () => {
           if (move === null) {
             return false;
           }
-          
+          sendMove(move);
           return true;
+        } else{
+            return false;
+        }
     })    
 
     const makeAMove = useCallback((move) => {
@@ -55,7 +62,10 @@ const useChessGame = () => {
         }
         return result;
     }, [getCurrentGame]);
-
+    if (receivedMove){
+        makeAMove(receivedMove);
+    }
+    
     const resetGame = useCallback(() => {
         setGame(new Chess());
     }, []);

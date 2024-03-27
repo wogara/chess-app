@@ -9,6 +9,8 @@
   "author": "william ogara",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.1"
+    "express": "^4.19.1",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.7.5"
   }
 }

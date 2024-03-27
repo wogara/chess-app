@@ -7,8 +7,8 @@ import openingsData from '../data/eco_interpolated.json';
 import BackButton from './BackButton';
 import { useStockfish } from '../hooks/useStockfish';
 
-export default function ChessGame({opening}) {
-  const {getCurrentGame, resetGame, isGameOver, onDrop, undoMove} = useChessGame();
+export default function ChessGame({opening,playerColor,sendMove, receivedMove}) {
+  const {getCurrentGame, resetGame, isGameOver, onDrop, undoMove} = useChessGame(playerColor,sendMove,receivedMove);
   const [filteredOpenings, setFilteredOpenings] = useState([]);
   const stockfish = useStockfish();
   const arrows = useOpeningArrows(getCurrentGame(),filteredOpenings);

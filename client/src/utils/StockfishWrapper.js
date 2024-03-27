@@ -11,7 +11,7 @@
         this.stockfishWorker = new Worker('/stockfish-nnue-16-single.js');
         this.isReady = new Promise((resolve, reject) => {
             this.stockfishWorker.onmessage = (event) => {
-                console.log("Stockfish:", event.data);
+                //console.log("Stockfish:", event.data);
                 if (event.data === 'uciok') {
                     resolve();
                 }
