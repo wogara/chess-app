@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import ChessGame from './ChessGame';
+import {v4 as uuidv4} from 'uuid';
 const SERVER_URL = 'http://localhost:3000';
 let socket;
 export default function ChessRoom({number,playerColor}) {

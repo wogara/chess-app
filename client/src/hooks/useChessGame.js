@@ -40,7 +40,10 @@ const useChessGame = (playerColor, sendMove, receivedMove) => {
           if (move === null) {
             return false;
           }
-          sendMove(move);
+          if (sendMove != undefined){
+            sendMove(move);
+          }
+          
           return true;
         } else{
             return false;
