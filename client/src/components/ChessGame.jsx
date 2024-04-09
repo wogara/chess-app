@@ -15,6 +15,8 @@ export default function ChessGame({opening,playerColor,sendMove, receivedMove}) 
   
   if (opening){
     arrows = useOpeningArrows(getCurrentGame(),filteredOpenings);
+    console.log('arrows');
+    console.log(arrows);
   }
   
 
@@ -51,15 +53,16 @@ export default function ChessGame({opening,playerColor,sendMove, receivedMove}) 
               position={currentFen} 
               onPieceDrop={onDrop}
               customArrows={arrows}
+              boardOrientation={playerColor!='both'?playerColor:'white'}
             />
             {arrows[0].length > 0 && <BackButton undoMove={undoMove}/>}
             
           </div>
           {isGameOver() && <div className="alert alert-success mt-3" role="alert">Checkmate</div>}
         </div>
-        <div className='col-lg-2'>
-        {arrows[0].length > 0 && <progress value={50} max={100}/>}
-        </div>
+        
+        {arrows[0].length > 0 && <div className='col-lg-2'><progress value={50} max={100}/></div>}
+        
       </div>
     </div>
   );

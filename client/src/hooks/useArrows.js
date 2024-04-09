@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {Chess} from 'chess.js';
 
 const useOpeningArrows = (game, filteredOpenings) => {
-  const [arrows, setArrows] = useState([]);
+  const [arrows, setArrows] = useState([[]]);
   
   //0 index, if return 1 then it's the second move
   const getMoveNumber = (game) => {
@@ -30,10 +30,10 @@ const useOpeningArrows = (game, filteredOpenings) => {
         console.log('setArrows');
         setArrows([total_arrows[moveNumber]]);
       } else {
-        setArrows([]); // Clear arrows if the moveNumber is out of bounds
+        setArrows([[]]); // Clear arrows if the moveNumber is out of bounds
       }
     } else {
-      setArrows([]); // Clear arrows if no opening is selected
+      setArrows([[]]); // Clear arrows if no opening is selected
     }
   }, [game, filteredOpenings]);
 

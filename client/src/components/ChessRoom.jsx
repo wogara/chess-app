@@ -19,10 +19,8 @@ export default function ChessRoom({playerColor}) {
           let number = humanId();
           socket.emit('createRoom', number );
           setRoomNumber(number);
-          //setPlayerColor('white'); // Creator plays as white
         } else if (playerColor === 'black') {
           socket.emit('joinRoom',  roomNumber );
-          //setPlayerColor('black'); // Joiner plays as black
         }
     
         socket.on('makeMove', (move) => {
@@ -43,6 +41,7 @@ export default function ChessRoom({playerColor}) {
     return (
         <div>
             <h1>{roomNumber}</h1>
+            <h4>Playing as {playerColor}</h4>
             <ChessGame opening={null} playerColor={playerColor} sendMove={sendMove} receivedMove={receivedMove}/>
         </div>
         
