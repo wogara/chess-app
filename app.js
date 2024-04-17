@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 });
 
 app.get('/',function(req,res){
-  res.send('hey');
+  res.send('m715q');
 })
 
 app.get('/api/test',function(req,res){
