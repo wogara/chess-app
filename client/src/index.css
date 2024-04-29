@@ -1,9 +1,9 @@
-
-
-/* body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-} */
+@font-face {
+  font-family: 'JetBrainsMonoNerdFont';
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: 'JetBrainsMonoNerdFont', monospace;
+}
