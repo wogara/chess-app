@@ -1,5 +1,5 @@
 // src/hooks/useChessGame.js
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback} from 'react';
 import { Chess } from 'chess.js';
 
 const useChessGame = (playerColor, sendMove, receivedMove) => {
@@ -33,7 +33,7 @@ const useChessGame = (playerColor, sendMove, receivedMove) => {
         const move = makeAMove({
             from: sourceSquare,
             to: targetSquare,
-            promotion: "q", // always promote to a queen for example simplicity
+            promotion: "q", 
           });
       
           
@@ -60,8 +60,6 @@ const useChessGame = (playerColor, sendMove, receivedMove) => {
             newGame.load_pgn(pgn);
             newGame.move(move);
             setGame(newGame);
-            //setGame(game.move(move));
-            //console.log(currentGame.pgn());
         }
         return result;
     }, [getCurrentGame]);

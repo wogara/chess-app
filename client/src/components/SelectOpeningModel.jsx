@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function JoinRoomModal({ isOpen, onClose, onJoin }) {
+export default function SelectOpeningModal({ isOpen, onClose}) {
     const [roomNumber, setRoomNumber] = useState('');
   
     return (
@@ -18,4 +18,4 @@ export default function JoinRoomModal({ isOpen, onClose, onJoin }) {
       )
     );
   }
-  
+ 

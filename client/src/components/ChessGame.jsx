@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Chessboard } from 'react-chessboard';
-import {Chess} from "chess.js";
 import useChessGame from '../hooks/useChessGame';
-import useOpeningArrows from '../hooks/useArrows'; // Import your custom hook
+import useOpeningArrows from '../hooks/useArrows'; 
 import openingsData from '../data/eco_interpolated.json';
 import BackButton from './BackButton';
 import { useStockfish } from '../hooks/useStockfish';
@@ -24,7 +23,7 @@ export default function ChessGame({opening,playerColor,sendMove, receivedMove}) 
   const currentFen = currentGame.fen();
 
   stockfish.sendCommand(`position fen ${currentFen}`);
-  stockfish.sendCommand("go depth 20");
+  stockfish.sendCommand("go depth 1");
   
 
   useEffect(() => {
