@@ -14,7 +14,7 @@ export default function SelectOpening() {
   };
   return (
     <div>
-      <label htmlFor="opening-selector">Choose an opening:</label>
+      <label htmlFor="opening-selector"></label>
       <select
         id="opening-selector"
         value={selectedOpening}
