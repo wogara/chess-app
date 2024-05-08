@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import ChessGame from './ChessGame';
 import { humanId } from 'human-id';
 import { useParams } from 'react-router-dom';
 const SERVER_URL = 'http://localhost:3000';
-let socket;
-export default function ChessRoom({playerColor}) {
+let socket: Socket;
+interface ChessRoomProps {
+  playerColor: 'white' | 'black' | 'both'; 
+}
+const ChessRoom: React.FC<ChessRoomProps> = ({playerColor}) => {
 
     const [receivedMove, setReceivedMove] = useState(null);
     const {number: number} = useParams();
@@ -16,7 +19,7 @@ export default function ChessRoom({playerColor}) {
         socket = io(SERVER_URL);
     
         if (playerColor === 'white') {
-          let number = humanId();
+          const number = humanId();
           socket.emit('createRoom', number );
           setRoomNumber(number);
         } else if (playerColor === 'black') {
@@ -33,7 +36,7 @@ export default function ChessRoom({playerColor}) {
           socket.disconnect();
         };
       }, [playerColor]);
-    const sendMove = (move) => {
+    const sendMove = (move: string) => {
         console.log('sendMove hit');
         console.log(roomNumber);
         socket.emit('makeMove',{roomNumber,move})
@@ -47,3 +50,5 @@ export default function ChessRoom({playerColor}) {
         
     )
 }
+
+export default ChessRoom;

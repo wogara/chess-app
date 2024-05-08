@@ -7,12 +7,18 @@ import Home from "./components/Home"; // A simple Home component for navigation
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
+
+  interface ApiResponse {
+    status: string;
+    data?: any;
+  }
   useEffect(() => {
     const fetchTest = async () => {
       try {
         const response = await fetch("/api/test");
-        console.log(response);
-      } catch (error) {
+        const data: ApiResponse = await response.json();
+        console.log(data);
+      } catch (error: any) {
         console.error("Error fetching /test:", error);
       }
     };

@@ -6,7 +6,7 @@ function Home() {
   const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleJoinRoom = (roomNumber) => {
+  const handleJoinRoom = (roomNumber: string) => {
     setIsJoinRoomModalOpen(false); // Close the modal
     navigate(`/join-room/${roomNumber}`); // Navigate to the room
   };
@@ -22,7 +22,7 @@ function Home() {
       <div>
         <Link to="/create-room">Create a Room</Link>
       </div>
-      <div onClick={() => setIsModalOpen(true)} style={{ cursor: "pointer" }}>
+      <div onClick={() => setIsJoinRoomModalOpen(true)} style={{ cursor: "pointer" }}>
         Join a Room {/* Make it clickable */}
       </div>
       <JoinRoomModal
