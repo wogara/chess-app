@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ChessGame from './ChessGame.jsx';
+import ChessGame from './ChessGame.tsx';
 
 export default function SelectOpening() {
   const [selectedOpening, setSelectedOpening] = useState("");

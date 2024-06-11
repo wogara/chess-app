@@ -18,15 +18,14 @@ export const useStockfish = () => {
     }
   }
   const parseStockfishOutput = (data) => {
-
     // Adjusted regex to capture both positive and negative scores
     const scoreMatch = data.match(/score cp (-?\d+)/);
     if (scoreMatch) {
-      let stockfishScore = parseInt(scoreMatch[1],10);
+      let stockfishScore = parseInt(scoreMatch[1], 10);
       let normalizedScore = normalizeChessScore(stockfishScore);
       setEvaluation(normalizedScore);
-      console.log("stockfish score: " + stockfishScore);
-      console.log("Normalized Score: " + normalizedScore); // Log the matched score
+      //console.log("stockfish score: " + stockfishScore);
+      //console.log("Normalized Score: " + normalizedScore); // Log the matched score
     }
 
     // Updated regex to capture the entire move sequence following 'pv'
@@ -39,6 +38,8 @@ export const useStockfish = () => {
   useEffect(() => {
     workerRef.current = new Worker("/stockfish-nnue-16-single.js");
     workerRef.current.onmessage = (event) => {
+      //console.log("EVENT");
+      //console.log(event);
       parseStockfishOutput(event.data);
     };
 

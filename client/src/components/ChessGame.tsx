@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useState, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import StockfishBar from "./StockfishBar";
@@ -7,22 +9,28 @@ import openingsData from "../data/eco_interpolated.json";
 import BackButton from "./BackButton";
 import { useStockfish } from "../hooks/useStockfish";
 
-export default function ChessGame({
+interface ChessGameProps {
+  opening: string,
+  playerColor: 'white' | 'black' | 'both';
+  sendMove: () => void;
+  receivedMove: string;
+  showStockfish: boolean;
+}
+
+const ChessGame: React.FC<ChessGameProps> = ({
   opening,
   playerColor,
   sendMove,
   receivedMove,
   showStockfish = true,
-}) {
+}) => {
   const { getCurrentGame, resetGame, isGameOver, onDrop, undoMove } =
     useChessGame(playerColor, sendMove, receivedMove);
-  const [filteredOpenings, setFilteredOpenings] = useState([]);
+  const [filteredOpenings, setFilteredOpenings] = useState({});
   const { evaluation, bestMove, sendCommand } = useStockfish();
   let arrows = [[]];
 
-  if (opening) {
     arrows = useOpeningArrows(getCurrentGame(), filteredOpenings);
-  }
 
   const currentGame = getCurrentGame();
   const currentFen = currentGame.fen();
@@ -32,8 +40,8 @@ export default function ChessGame({
     sendCommand(`position fen ${currentFen}`);
     sendCommand("go depth 10");
   }, [currentFen]);
-  console.log("bestMove" + bestMove);
-  console.log("evaluation" + evaluation);
+  //console.log("bestMove" + bestMove);
+  //console.log("evaluation" + evaluation);
   useEffect(() => {
     if (opening) {
       // Convert openingsData to an array of [fen, details] pairs,
@@ -69,7 +77,6 @@ export default function ChessGame({
               customArrows={arrows}
               boardOrientation={playerColor != "both" ? playerColor : "white"}
             />
-            {arrows[0].length > 0 && <BackButton undoMove={undoMove} />}
           </div>
           {isGameOver() && (
             <div className="alert alert-success mt-3" role="alert">
@@ -86,3 +93,5 @@ export default function ChessGame({
     </div>
   );
 }
+
+export default ChessGame;

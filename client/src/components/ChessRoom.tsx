@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 import ChessGame from './ChessGame';
